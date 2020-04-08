@@ -3,10 +3,15 @@ import platform
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class Client(webdriver.Chrome):
-    def __init__(self, university, executable_path=None, options=None, headless=True, *args, **kwargs):
+    delay = 10
+
+    def __init__(self, executable_path=None, options=None, headless=True, *args, **kwargs):
         # find the browser driver
         if not executable_path:
             system = platform.system()
@@ -29,8 +34,6 @@ class Client(webdriver.Chrome):
 
         super().__init__(executable_path=executable_path, options=options, *args, **kwargs)
 
-        self.university = university
-        self.is_authenticated = False
-
-    def authenticate(self, username, password):
-        raise NotImplementedError()
+    def find_element_by_css_selector(self, css_selector):
+        WebDriverWait(self, self.delay).until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+        return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
