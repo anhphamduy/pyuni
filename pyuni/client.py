@@ -37,3 +37,6 @@ class Client(webdriver.Chrome):
     def find_element_by_css_selector(self, css_selector):
         WebDriverWait(self, self.delay).until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
         return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.quit()

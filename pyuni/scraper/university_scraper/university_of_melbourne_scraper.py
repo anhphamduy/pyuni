@@ -13,7 +13,8 @@ class UniversityOfMelbourneScraper(UniversityScraper):
         'username_input': '#usernameInput',
         'password_input': '#passwordInput',
         'login_button': '.page-inner form button[type="submit"]',
-        'timetable_anchor_menu': 'a[href="#timetable"]'
+        'timetable_anchor_menu': 'a[href="#timetable"]',
+        'download_button': '#timetable-tpl #download_dropdown'
     }
 
     @classmethod
@@ -35,8 +36,13 @@ class UniversityOfMelbourneScraper(UniversityScraper):
     @classmethod
     def scrape(cls, client):
         cls.go_to_timetable_page(client)
+        cls.download_timetable(client)
 
     @classmethod
     def go_to_timetable_page(cls, client):
         client.get(cls.urls['homepage'])
         client.find_element_by_css_selector(cls.element_selectors['timetable_anchor_menu']).click()
+
+    @classmethod
+    def download_timetable(cls, client):
+        client.find_element_by_css_selector(cls.element_selectors['download_button']).click()
