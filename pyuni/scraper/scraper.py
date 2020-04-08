@@ -5,7 +5,7 @@ class Scraper:
         self.university_scraper = university_scraper()
 
     def scrape(self):
-        raise NotImplementedError()
+        return self.university_scraper.scrape(self.client)
 
     def authenticate(self, username, password):
         """

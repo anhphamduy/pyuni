@@ -6,8 +6,8 @@ class UniversityScraper(ABC):
     @abstractmethod
     def element_selectors(self):
         """
-        :return: the login url of the corresponding university
-        :rtype: str
+        :return: the dictionary of the selectors that are used within the class
+        :rtype: dict
         """
         pass
 
@@ -17,6 +17,15 @@ class UniversityScraper(ABC):
         """
         :return: the login url of the corresponding university
         :rtype: str
+        """
+        pass
+
+    @property
+    @abstractmethod
+    def urls(self):
+        """
+        :return: a dict of urls that are used within the class
+        :rtype: dict
         """
         pass
 
