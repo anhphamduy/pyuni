@@ -1,3 +1,6 @@
+import time
+
+
 class Scraper:
 
     def __init__(self, client, university_scraper):
@@ -17,3 +20,10 @@ class Scraper:
         :type password: str
         """
         self.university_scraper.authenticate(self.client, username, password)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.university_scraper.end_session(self.client)
+        time.sleep(3)

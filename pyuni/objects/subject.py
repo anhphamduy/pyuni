@@ -12,10 +12,17 @@ class Subject:
     def __eq__(self, other):
         return self.name == other.name and self.code == other.code and self.period == other.period
 
+    def __repr__(self):
+        return f'{self.code} - {self.name} - {self.period}'
+
 
 class SubjectSession:
 
-    def __init__(self, code, form, date):
+    def __init__(self, code, form, date, location):
         self.code = code
         self.form = form
         self.date = date
+        self.location = location
+
+    def __repr__(self):
+        return f'{self.code} - {self.form} - {self.date}'

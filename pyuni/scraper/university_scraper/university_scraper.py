@@ -50,6 +50,17 @@ class UniversityScraper(ABC):
         """
         pass
 
+    @abstractmethod
+    def end_session(self, client):
+        """
+        End session of the scraper
+        :param client: the browser instance
+        :type client: Client
+        :return: nothing
+        :rtype: None
+        """
+        pass
+
 
 class UniversityFactory(ABC):
     @abstractmethod
