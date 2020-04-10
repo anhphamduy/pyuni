@@ -29,6 +29,15 @@ class UniversityScraper(ABC):
         """
         pass
 
+    @property
+    @abstractmethod
+    def factory(self):
+        """
+        :return: a factory corresponding with the scraper
+        :rtype: dict
+        """
+        pass
+
     @abstractmethod
     def authenticate(self, username, password):
         """
@@ -38,5 +47,27 @@ class UniversityScraper(ABC):
         :type username: str
         :param password: the password to log in to the system
         :type password: str
+        """
+        pass
+
+
+class UniversityFactory(ABC):
+    @abstractmethod
+    def create_subjects(self, content):
+        """
+        Create subject objects from content
+        :rtype: any
+        :param content: the content that was produced by the scraper
+        :type content: any
+        """
+        pass
+
+    @abstractmethod
+    def create_profile(self, content):
+        """
+        Create profile object from content
+        :rtype: any
+        :param content: the content that was produced by the scraper
+        :type content: any
         """
         pass

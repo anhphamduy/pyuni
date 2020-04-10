@@ -1,5 +1,8 @@
 import os
 import platform
+import shutil
+import tempfile
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -25,7 +28,16 @@ class Client(webdriver.Chrome):
             executable_path = os.path.join(os.path.dirname(__file__), 'drivers', os_path, 'chromedriver')
 
         if not options:
+            self.download_dir_path = tempfile.mkdtemp()
+
             options = Options()
+
+            options.add_experimental_option('prefs', {
+                'download.default_directory': self.download_dir_path,
+                'download.prompt_for_download': False,
+                'download.directory_upgrade': True,
+                'safebrowsing.enabled': True
+            })
 
             if headless:
                 options.add_argument("--headless")
@@ -38,5 +50,10 @@ class Client(webdriver.Chrome):
         WebDriverWait(self, self.delay).until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
         return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
 
+    @classmethod
+    def delay_test(cls):
+        time.sleep(100)
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.quit()
+        shutil.rmtree(self.download_dir_path)
