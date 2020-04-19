@@ -8,7 +8,7 @@ class Scraper:
         self.university_scraper = university_scraper()
 
     def scrape(self):
-        self.university_scraper.scrape(self.client)
+        return self.university_scraper.scrape(self.client)
 
     def authenticate(self, username, password):
         """
